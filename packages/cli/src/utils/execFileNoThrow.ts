@@ -17,10 +17,10 @@ export async function execFileNoThrow(
 ): Promise<ExecResult> {
   try {
     const { stdout, stderr } = await execFileAsync(command, args, {
-      stdio: 'pipe',
       ...options,
     });
-    return { stdout, stderr, status: 0, success: true };
+    // execFile may yield Buffer when no string encoding is set — coerce.
+    return { stdout: stdout.toString(), stderr: stderr.toString(), status: 0, success: true };
   } catch (error: any) {
     return {
       stdout: error.stdout || '',

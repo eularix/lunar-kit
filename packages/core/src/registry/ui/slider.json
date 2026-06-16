@@ -11,7 +11,7 @@
   "dependencies": [
     "react-native-reanimated",
     "react-native-gesture-handler",
-    "nativewind"
+    "@lunar-kit/css"
   ],
   "registryDependencies": [],
   "meta": {
@@ -21,7 +21,7 @@
       "Support for min, max, and step",
       "Controlled and uncontrolled modes",
       "High performance using Shared Values",
-      "Fully themed with NativeWind"
+      "Fully themed with LunarCSS"
     ]
   }
 }

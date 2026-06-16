@@ -10,7 +10,7 @@
   ],
   "dependencies": [
     "react-native-reanimated",
-    "nativewind"
+    "@lunar-kit/css"
   ],
   "registryDependencies": [],
   "meta": {

@@ -117,7 +117,7 @@ export async function getAuthToken(): Promise<string | null> {
   // Prompt to install axios if not present
   if (!hasAxios) {
     console.log(chalk.yellow('\n⚠ Missing dependency: axios'));
-    const prompts = await import('prompts');
+    const { default: prompts } = await import('prompts');
     const response = await prompts([
       {
         type: 'confirm',
@@ -127,8 +127,8 @@ export async function getAuthToken(): Promise<string | null> {
       },
     ]);
 
+    const packageManager = config.packageManager || 'pnpm';
     if (response.install) {
-      const packageManager = config.packageManager || 'pnpm';
       const { execa } = await import('execa');
       
       const installSpinner = ora('Installing axios...').start();
@@ -143,7 +143,7 @@ export async function getAuthToken(): Promise<string | null> {
         console.log(chalk.dim(`  Run: ${packageManager} add axios`));
       }
     } else {
-      console.log(chalk.dim(`  Run: ${packageManager || 'npm'} add axios`));
+      console.log(chalk.dim(`  Run: ${packageManager} add axios`));
     }
   }
 }

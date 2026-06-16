@@ -7,7 +7,7 @@ import React from 'react'
 import { Text, useToolbar } from '@lunar-kit/core'
 
 const SwitchDemo = () => {
-  const [state, setState] = React.useState<any>();
+  const [airplaneMode, setAirplaneMode] = React.useState(false);
 
   return (
     <Demonstration components={

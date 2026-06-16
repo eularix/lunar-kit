@@ -1,7 +1,11 @@
 // lib/theme.ts
-import { vars } from 'nativewind';
+// LunarCSS theme tokens for @lunar-kit/core. ThemeProvider swaps these at
+// runtime via updateTheme() on light/dark switch. Values are concrete sRGB hex
+// (converted from the shadcn HSL design tokens) — RN + Reanimated + web safe.
+// (Migrated off NativeWind's `vars()`, which relied on a CSS-variable runtime
+// LunarCSS does not have on native.)
 
-// Define HSL values sebagai constants
+// HSL design tokens (source of truth).
 const lightThemeVars = {
   '--background': '0 0% 100%',
   '--foreground': '222.2 84% 4.9%',
@@ -42,14 +46,27 @@ const darkThemeVars = {
   '--ring': '60 9.1% 97.8%',
 };
 
-// Export vars untuk NativeWind
-export const lightTheme = vars(lightThemeVars);
-export const darkTheme = vars(darkThemeVars);
+// CSS-var map ('--background': 'H S% L%') → LunarCSS token map
+// ('--color-background': '#rrggbb'). Fed to updateTheme() by ThemeProvider.
+function toLunarTokens(themeVars: Record<string, string>): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const [name, hsl] of Object.entries(themeVars)) {
+    // '--background' → '--color-background'
+    out[`--color${name.slice(1)}`] = hslToHex(hsl);
+  }
+  return out;
+}
 
-// Helper function untuk convert HSL string ke hex
+// LunarCSS token maps consumed by ThemeProvider (updateTheme).
+export const lightTokens = toLunarTokens(lightThemeVars);
+export const darkTokens = toLunarTokens(darkThemeVars);
+
+// Helper function untuk convert HSL string ke hex.
 function hslToHex(hsl: string): string {
   const [h, s, l] = hsl.split(' ').map(Number.parseFloat);
-  const a = (s * Math.min(l, 100 - l)) / 10000;
+  // s and l are 0-100, so normalize by /100 (the earlier /10000 desaturated
+  // every color — e.g. destructive red collapsed to grey).
+  const a = (s * Math.min(l, 100 - l)) / 100;
   const f = (n: number) => {
     const k = (n + h / 30) % 12;
     const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);

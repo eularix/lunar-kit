@@ -10,7 +10,7 @@
   ],
   "dependencies": [
     "lucide-react-native",
-    "nativewind"
+    "@lunar-kit/css"
   ],
   "registryDependencies": [],
   "meta": {
@@ -18,7 +18,7 @@
     "features": [
       "Built-in debounce support for search queries",
       "Quick clear button",
-      "Fully themed using NativeWind",
+      "Fully themed using LunarCSS",
       "Configurable placeholder and icons"
     ]
   }

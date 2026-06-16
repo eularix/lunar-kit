@@ -10,9 +10,11 @@
   ],
   "dependencies": [
     "lucide-react-native",
-    "nativewind"
+    "@lunar-kit/css"
   ],
-  "registryDependencies": ["text"],
+  "registryDependencies": [
+    "text"
+  ],
   "meta": {
     "description": "Visual representation of steps in a flow, highlighting completed and current states.",
     "features": [

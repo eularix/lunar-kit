@@ -9,7 +9,7 @@
     }
   ],
   "dependencies": [
-    "nativewind"
+    "@lunar-kit/css"
   ],
   "registryDependencies": [],
   "meta": {
@@ -17,7 +17,7 @@
     "features": [
       "Horizontal & Vertical orientations",
       "Lightweight and semantic",
-      "Customizable through NativeWind",
+      "Customizable through LunarCSS",
       "Dark mode support"
     ]
   }

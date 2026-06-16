@@ -25,7 +25,7 @@
       "Left and right icon support on items",
       "Auto-close on item press",
       "Scrollable content for long menus",
-      "Dark mode support via NativeWind"
+      "Dark mode support via LunarCSS"
     ]
   }
 }

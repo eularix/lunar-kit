@@ -1,8 +1,10 @@
 import fs from 'fs-extra';
 import path from 'path';
-import {  toPascalCase } from './helpers.js';
+import {  toPascalCase, assertSafeRelativePath } from './helpers.js';
 
 export async function addToRouting(config: any, modulePath: string, viewName: string, type: "module" | "view" = 'module') {
+  // Reject traversal before any path is written under app/ or src/navigation/.
+  modulePath = assertSafeRelativePath(modulePath);
   if (config.navigation === 'expo-router') {
     await addToExpoRouter(config, modulePath, viewName, type);
   } else if (config.navigation === 'react-navigation') {

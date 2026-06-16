@@ -9,9 +9,12 @@
     }
   ],
   "dependencies": [
-    "nativewind"
+    "@lunar-kit/css"
   ],
-  "registryDependencies": ["text", "button"],
+  "registryDependencies": [
+    "text",
+    "button"
+  ],
   "meta": {
     "description": "A clean and informative empty state component to guide users when no content is available.",
     "features": [

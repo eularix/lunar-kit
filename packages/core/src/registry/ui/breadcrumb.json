@@ -10,9 +10,11 @@
   ],
   "dependencies": [
     "lucide-react-native",
-    "nativewind"
+    "@lunar-kit/css"
   ],
-  "registryDependencies": ["text"],
+  "registryDependencies": [
+    "text"
+  ],
   "meta": {
     "description": "Clear and accessible breadcrumb navigation with customizable separators.",
     "features": [

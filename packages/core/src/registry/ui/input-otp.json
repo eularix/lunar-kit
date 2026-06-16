@@ -10,9 +10,11 @@
   ],
   "dependencies": [
     "react-native-reanimated",
-    "nativewind"
+    "@lunar-kit/css"
   ],
-  "registryDependencies": ["text"],
+  "registryDependencies": [
+    "text"
+  ],
   "meta": {
     "description": "Highly accessible and customizable OTP/PIN input with auto-focus and paste support.",
     "features": [

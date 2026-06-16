@@ -127,7 +127,7 @@ export interface BottomSheetContentProps {
 
 /**
  * Styled sheet panel. Only renders inside the modal (RenderMode = 'modal').
- * Applies NativeWind card styling and auto-renders the drag handle at the top.
+ * Applies LunarCSS card styling and auto-renders the drag handle at the top.
  */
 export function BottomSheetContent({ children, className }: BottomSheetContentProps) {
   const { variant } = useVariant();

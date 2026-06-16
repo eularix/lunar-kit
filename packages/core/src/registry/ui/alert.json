@@ -11,7 +11,7 @@
   "dependencies": [
     "lucide-react-native",
     "class-variance-authority",
-    "nativewind"
+    "@lunar-kit/css"
   ],
   "registryDependencies": [
     "text"
@@ -23,7 +23,7 @@
       "Optional automatic icon based on variant",
       "Customizable icon",
       "Dark mode support",
-      "NativeWind integration"
+      "LunarCSS integration"
     ]
   }
 }

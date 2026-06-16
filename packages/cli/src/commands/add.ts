@@ -2,7 +2,7 @@ import fs from 'fs-extra';
 import path from 'node:path';
 import chalk from 'chalk';
 import ora, { Ora } from 'ora';
-import { loadConfig } from '../utils/helpers.js';
+import { loadConfig, assertWithin } from '../utils/helpers.js';
 import { execFileNoThrow } from '../utils/execFileNoThrow.js';
 import {
   LOCAL_REGISTRY_PATH,
@@ -153,7 +153,8 @@ async function installRegistryDependencies(
     // Copy component files
     for (const file of depRegistry.files) {
       const srcPath = path.join(componentsPath, file.path);
-      const destPath = path.join(componentsDir, file.path);
+      // Defense-in-depth: registry file paths must stay inside the dest dir.
+      const destPath = assertWithin(componentsDir, path.join(componentsDir, file.path));
 
       if (await fs.pathExists(srcPath)) {
         await fs.ensureDir(path.dirname(destPath));
@@ -226,7 +227,8 @@ export async function addComponent(componentName: string) {
     // Copy component files
     for (const file of componentRegistry.files) {
       const srcPath = path.join(componentsPath, file.path);
-      const destPath = path.join(componentsDir, file.path);
+      // Defense-in-depth: registry file paths must stay inside the dest dir.
+      const destPath = assertWithin(componentsDir, path.join(componentsDir, file.path));
 
       if (await fs.pathExists(srcPath)) {
         await fs.ensureDir(path.dirname(destPath));

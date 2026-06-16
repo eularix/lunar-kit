@@ -18,7 +18,7 @@ export default defineConfig({
     'react-native-gesture-handler',
     'lucide-react-native',
     'class-variance-authority',
-    'nativewind',
+    '@lunar-kit/css',
     'clsx',
     'tailwind-merge',
     'react-hook-form',

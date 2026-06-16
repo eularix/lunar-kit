@@ -3,7 +3,7 @@ import path from 'node:path';
 import chalk from 'chalk';
 import ora from 'ora';
 import prompts from 'prompts';
-import { loadConfig, toSnakeCase, toPascalCase } from '../utils/helpers.js';
+import { loadConfig, toSnakeCase, toPascalCase, assertSafeRelativePath } from '../utils/helpers.js';
 import { addToRouting } from '../utils/routing.js';
 
 interface ModuleOptions {
@@ -22,8 +22,9 @@ export async function generateModule(modulePath: string) {
       return;
     }
 
-    const fullPath = path.join(process.cwd(), config.modulesDir, modulePath);
-    
+    const safeModulePath = assertSafeRelativePath(modulePath);
+    const fullPath = path.join(process.cwd(), config.modulesDir, safeModulePath);
+
     // Check if module exists
     if (fs.existsSync(fullPath)) {
       spinner.fail(`Module ${modulePath} already exists`);

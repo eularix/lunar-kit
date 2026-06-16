@@ -166,10 +166,10 @@ function NativeUnderlineIndicator({ isActive }: { isActive: boolean }) {
     const opacity = React.useRef(new Animated.Value(isActive ? 1 : 0)).current;
 
     React.useEffect(() => {
-        // @ts-ignore
         Animated.timing(opacity, {
             toValue: isActive ? 1 : 0,
             duration: 200,
+            useNativeDriver: true,
         }).start();
     }, [isActive]);
 

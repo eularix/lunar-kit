@@ -20,7 +20,7 @@
       "4 placement options: top, bottom, left, right",
       "Animated entry and exit transitions",
       "Auto-repositioning within window bounds",
-      "Dark mode support via NativeWind",
+      "Dark mode support via LunarCSS",
       "Configurable offset distance",
       "String or custom content support"
     ]

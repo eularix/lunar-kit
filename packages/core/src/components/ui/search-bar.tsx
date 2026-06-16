@@ -30,7 +30,14 @@ export function SearchBar({
     const [internalValue, setInternalValue] = React.useState(defaultValue);
     const currentValue = controlledValue ?? internalValue;
 
-    const timerRef = React.useRef<any>(null);
+    const timerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    // Clear any pending debounce on unmount so the callback can't fire late.
+    React.useEffect(() => {
+        return () => {
+            if (timerRef.current) clearTimeout(timerRef.current);
+        };
+    }, []);
 
     const handleChange = (text: string) => {
         if (controlledValue === undefined) {

@@ -10,7 +10,7 @@
   ],
   "dependencies": [
     "react-native-reanimated",
-    "nativewind"
+    "@lunar-kit/css"
   ],
   "registryDependencies": [],
   "meta": {
@@ -20,7 +20,7 @@
       "Animated pagination dots",
       "Snap-to-item mechanics",
       "High performance using FlatList",
-      "Themed with NativeWind"
+      "Themed with LunarCSS"
     ]
   }
 }
