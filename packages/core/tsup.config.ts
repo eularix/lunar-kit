@@ -6,7 +6,7 @@ import { cp } from 'fs/promises';
 export default defineConfig({
   entry: ['src/index.ts', 'src/templates.ts', 'src/cli-utils.ts'],
   format: ['esm'],
-  dts: false,
+  dts: true,
   clean: true,
   outDir: 'dist',
   // Externalize peer dependencies and external packages

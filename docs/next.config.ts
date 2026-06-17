@@ -21,6 +21,9 @@ const nextConfig: NextConfig = {
   turbopack: {
     resolveAlias: {
       "react-native": "react-native-web",
+      // Worklets has no web build (imports TurboModuleRegistry, absent on RN-Web).
+      // Route to the no-op stub so reanimated's web path resolves.
+      "react-native-worklets": "@stub/react-native-worklets",
       "react-native/Libraries/Renderer/shims/ReactFabric": "react-native-web",
       "react-native/Libraries/Utilities/codegenNativeComponent": "react-native-web",
       "react-native/Libraries/EventEmitter/EventEmitter": "react-native-web",
@@ -41,6 +44,7 @@ const nextConfig: NextConfig = {
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
       "react-native$": "react-native-web",
+      "react-native-worklets$": "@stub/react-native-worklets",
     };
     config.resolve.extensions = [
       ".web.js",

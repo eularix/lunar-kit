@@ -5,23 +5,23 @@
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
-  "types": "./src/index.ts",
+  "types": "./dist/index.d.ts",
   "source": "./src/index.ts",
   "react-native": "./src/index.ts",
   "exports": {
     ".": {
-      "types": "./src/index.ts",
+      "types": "./dist/index.d.ts",
       "react-native": "./src/index.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
     "./templates": {
-      "types": "./src/templates.ts",
+      "types": "./dist/templates.d.ts",
       "import": "./dist/templates.js",
       "default": "./dist/templates.js"
     },
     "./cli-utils": {
-      "types": "./src/cli-utils.ts",
+      "types": "./dist/cli-utils.d.ts",
       "import": "./dist/cli-utils.js",
       "default": "./dist/cli-utils.js"
     }
@@ -34,8 +34,7 @@
     "src/stores",
     "src/lib",
     "src/navigation",
-    "src/templates",
-    "src/tailwind.config.js"
+    "src/templates"
   ],
   "keywords": [
     "react-native",
@@ -60,10 +59,10 @@
     "react-native-screens": "*",
     "lucide-react-native": "*",
     "class-variance-authority": "*",
-    "nativewind": "*",
     "zustand": "*"
   },
   "dependencies": {
+    "@lunar-kit/css": "0.3.0",
     "@lunar-primitive/adaptive-modal": "workspace:*",
     "@lunar-primitive/bottom-sheet": "workspace:*",
     "clsx": "^2.1.1",
@@ -79,7 +78,6 @@
     "esbuild-plugin-alias": "^0.2.1",
     "expo-router": "*",
     "lucide-react-native": "*",
-    "nativewind": "*",
     "react-native": "*",
     "react-hook-form": "*",
     "react-native-reanimated": "*",

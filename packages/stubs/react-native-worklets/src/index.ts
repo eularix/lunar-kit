@@ -25,4 +25,5 @@ export const WorkletsModule = { scheduleOnRN: noop, createValue: () => ({}), add
 export const getUIRuntimeHolder = noop;
 export const getUISchedulerHolder = noop;
 export const getStaticFeatureFlag = () => false;
+export const callMicrotasks = noop;
 export default {};

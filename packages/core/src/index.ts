@@ -1,5 +1,8 @@
+/// <reference types="@lunar-kit/css/types" />
 // React Native compatible - lazy path resolution
 // Path constants only resolve when accessed (in Node.js context)
+// The reference above augments RN components with `className` (replaces the
+// deleted nativewind-env.d.ts) so core's source + dts build typecheck.
 
 export const REGISTRY_URL = 'https://raw.githubusercontent.com/dimsmaul/lunar-kit/main/packages/core/src/registry';
 
