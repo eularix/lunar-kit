@@ -3,6 +3,9 @@ const { createPreset } = require('fumadocs-ui/tailwind-plugin');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  // Required for NativeWind's manual setColorScheme() (docs ThemeProvider).
+  // Class-based, so it also lines up with fumadocs' next-themes `.dark` class.
+  darkMode: 'class',
   content: [
     './src/**/*.{js,ts,jsx,tsx,mdx}',
     './content/**/*.{md,mdx}',
