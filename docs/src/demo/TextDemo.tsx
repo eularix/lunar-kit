@@ -1,26 +1,7 @@
 'use client'
+import dynamic from 'next/dynamic'
 
-import Demonstration from '@/components/demontration'
-import { Text } from '@/lunar-kit/components/text'
-import { View } from 'react-native'
-import React from 'react'
-
-const TextDemo = () => {
-  return (
-    <Demonstration components={
-      <View>
-        <Text />
-      </View>
-    } code={`import { Text } from '@/components/ui/text'
-
-const TextPreview = () => {
-  return (
-    <Text />
-  )
-}
-
-export default TextPreview`}/>
-  )
-}
+// Client-only: the RN demo (reanimated worklets) can't be server-rendered.
+const TextDemo = dynamic(() => import('./impl/TextDemo'), { ssr: false })
 
 export default TextDemo

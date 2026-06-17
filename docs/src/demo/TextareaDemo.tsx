@@ -1,26 +1,7 @@
 'use client'
+import dynamic from 'next/dynamic'
 
-import Demonstration from '@/components/demontration'
-import { Textarea } from '@/lunar-kit/components/textarea'
-import { View } from 'react-native'
-import React from 'react'
-
-const TextareaDemo = () => {
-  return (
-    <Demonstration components={
-      <View>
-        <Textarea />
-      </View>
-    } code={`import { Textarea } from '@/components/ui/textarea'
-
-const TextareaPreview = () => {
-  return (
-    <Textarea />
-  )
-}
-
-export default TextareaPreview`}/>
-  )
-}
+// Client-only: the RN demo (reanimated worklets) can't be server-rendered.
+const TextareaDemo = dynamic(() => import('./impl/TextareaDemo'), { ssr: false })
 
 export default TextareaDemo

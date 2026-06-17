@@ -1,26 +1,7 @@
 'use client'
+import dynamic from 'next/dynamic'
 
-import Demonstration from '@/components/demontration'
-import { Toaster } from '@/lunar-kit/components/toaster'
-import { View } from 'react-native'
-import React from 'react'
-
-const ToasterDemo = () => {
-  return (
-    <Demonstration components={
-      <View>
-        <Toaster />
-      </View>
-    } code={`import { Toaster } from '@/components/ui/toaster'
-
-const ToasterPreview = () => {
-  return (
-    <Toaster />
-  )
-}
-
-export default ToasterPreview`}/>
-  )
-}
+// Client-only: the RN demo (reanimated worklets) can't be server-rendered.
+const ToasterDemo = dynamic(() => import('./impl/ToasterDemo'), { ssr: false })
 
 export default ToasterDemo

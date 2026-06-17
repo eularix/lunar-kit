@@ -1,30 +1,7 @@
 'use client'
+import dynamic from 'next/dynamic'
 
-import Demonstration from '@/components/demontration'
-import { StepIndicator } from '@/lunar-kit/components/step-indicator'
-import { View } from 'react-native'
-import React from 'react'
-
-const StepIndicatorDemo = () => {
-
-  return (
-    <Demonstration components={
-      <View className="items-center justify-center p-4 w-full">
-        <StepIndicator steps={[]} currentStep={0}          />
-      </View>
-    } code={`import { StepIndicator } from '@/components/ui/step-indicator'
-
-const StepIndicatorPreview = () => {
-  return (
-    <StepIndicator 
-            steps={STEPS}
-            currentStep={currentStep}
-          />
-  )
-}
-
-export default StepIndicatorPreview`}/>
-  )
-}
+// Client-only: the RN demo (reanimated worklets) can't be server-rendered.
+const StepIndicatorDemo = dynamic(() => import('./impl/StepIndicatorDemo'), { ssr: false })
 
 export default StepIndicatorDemo

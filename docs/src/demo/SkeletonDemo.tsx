@@ -1,27 +1,7 @@
 'use client'
+import dynamic from 'next/dynamic'
 
-import Demonstration from '@/components/demontration'
-import { Skeleton } from '@/lunar-kit/components/skeleton'
-import { View } from 'react-native'
-import React from 'react'
-
-const SkeletonDemo = () => {
-
-  return (
-    <Demonstration components={
-      <View className="items-center justify-center p-4 w-full">
-        <Skeleton className="h-[100px] w-full" />
-      </View>
-    } code={`import { Skeleton } from '@/components/ui/skeleton'
-
-const SkeletonPreview = () => {
-  return (
-    <Skeleton className="h-[100px] w-full" />
-  )
-}
-
-export default SkeletonPreview`}/>
-  )
-}
+// Client-only: the RN demo (reanimated worklets) can't be server-rendered.
+const SkeletonDemo = dynamic(() => import('./impl/SkeletonDemo'), { ssr: false })
 
 export default SkeletonDemo

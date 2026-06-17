@@ -1,35 +1,7 @@
 'use client'
+import dynamic from 'next/dynamic'
 
-import Demonstration from '@/components/demontration'
-import { Switch } from '@/lunar-kit/components/switch'
-import { View } from 'react-native'
-import React from 'react'
-import { Text, useToolbar } from '@lunar-kit/core'
-
-const SwitchDemo = () => {
-  const [airplaneMode, setAirplaneMode] = React.useState(false);
-
-  return (
-    <Demonstration components={
-      <View className="items-center justify-center p-4 w-full">
-        <Switch
-            checked={airplaneMode}
-            onCheckedChange={setAirplaneMode}
-          />
-      </View>
-    } code={`import { Switch } from '@/components/ui/switch'
-
-const SwitchPreview = () => {
-  return (
-    <Switch
-            checked={airplaneMode}
-            onCheckedChange={setAirplaneMode}
-          />
-  )
-}
-
-export default SwitchPreview`}/>
-  )
-}
+// Client-only: the RN demo (reanimated worklets) can't be server-rendered.
+const SwitchDemo = dynamic(() => import('./impl/SwitchDemo'), { ssr: false })
 
 export default SwitchDemo
