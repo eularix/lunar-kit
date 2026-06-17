@@ -14,6 +14,20 @@ const findFn = (args: unknown[]) => args.find((a) => typeof a === 'function');
 const callNow = (fn?: unknown, ...args: unknown[]) =>
   typeof fn === 'function' ? (fn as (...a: unknown[]) => unknown)(...args) : undefined;
 
+// Reanimated's web runtime reads a few globals that the real worklets init
+// would normally install. This stub replaces that init, so set minimal shims
+// here (module load) — otherwise its animation loop throws e.g.
+// "_getAnimationTimestamp is not a function".
+{
+  const g = globalThis as unknown as Record<string, unknown>;
+  const ts = () => (typeof performance !== 'undefined' ? performance.now() : Date.now());
+  if (typeof g._getAnimationTimestamp !== 'function') g._getAnimationTimestamp = ts;
+  if (typeof g._WORKLET === 'undefined') g._WORKLET = false;
+  if (typeof g.__reanimatedLoggerConfig === 'undefined') {
+    g.__reanimatedLoggerConfig = { logFunction: noop, level: 'warn', strict: false };
+  }
+}
+
 export const createSerializable = identity;
 export const createShareable = identity;
 export const createSynchronizable = identity;
