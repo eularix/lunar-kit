@@ -1,0 +1,60 @@
+{
+  "name": "@lunar-primitive/calendar",
+  "version": "0.0.0",
+  "description": "Headless calendar primitive (state + grid math) for Lunar Kit",
+  "author": "Dimas Maulana Ahmad",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dimsmaul/lunar-kit",
+    "directory": "packages/primitives/calendar"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./src/index.ts",
+  "source": "./src/index.ts",
+  "react-native": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "react-native": "./src/index.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "keywords": [
+    "react-native",
+    "lunar-kit",
+    "calendar",
+    "primitive"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "prepublishOnly": "bun run build"
+  },
+  "peerDependencies": {
+    "dayjs": "*",
+    "react": "*",
+    "react-native": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "@types/react": "^19.0.0",
+    "@types/react-native": "^0.72.0",
+    "dayjs": "*",
+    "react": "*",
+    "react-native": "*",
+    "tsup": "^8.5.1",
+    "typescript": "~5.9.3"
+  }
+}

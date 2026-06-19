@@ -1,5 +1,5 @@
 export * from './accordion';
-export { AdaptiveModal, Portal, type AdaptiveModalProps, type AdaptiveModalRef } from '@lunar-primitive/adaptive-modal';
+export { AdaptiveModal, Portal, type AdaptiveModalProps } from '@lunar-primitive/adaptive-modal';
 export * from './alert';
 export * from './avatar';
 export * from './badge';

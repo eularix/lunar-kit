@@ -1,5 +1,5 @@
+/// <reference types="@lunar-kit/css/types" />
 import React from 'react';
-import './global.css';
 import { StatusBar } from 'expo-status-bar';
 import Navigation from './Navigation';
 

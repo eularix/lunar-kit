@@ -1,5 +1,13 @@
 import { create } from 'zustand';
-import { randomUUID } from 'node:crypto';
+
+// Cross-platform unique ID. RN/Metro can't resolve `node:crypto`; web `crypto.randomUUID`
+// isn't always available in older browsers. Counter + timestamp + Math.random suffices for
+// in-memory toast IDs (collision risk negligible at human-scale toast frequency).
+let __toastCounter = 0;
+function makeId(): string {
+  __toastCounter = (__toastCounter + 1) % Number.MAX_SAFE_INTEGER;
+  return `toast-${Date.now().toString(36)}-${__toastCounter.toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+}
 
 export interface Toast {
     id: string;
@@ -21,7 +29,7 @@ interface ToastState {
 export const useToastStore = create<ToastState>((set) => ({
     toasts: [],
     addToast: (toast) => {
-        const id = randomUUID();
+        const id = makeId();
         set((state) => ({
             toasts: [...state.toasts, { ...toast, id }],
         }));

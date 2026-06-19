@@ -24,7 +24,16 @@ export * from "./radio-group";
 export * from "./radio";
 export * from "./search-bar";
 export * from "./select-sheet";
-export * from "./select";
+export {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+  SelectGroup,
+  SelectLabel,
+  SelectSeparator,
+} from "./select";
 export * from "./separator";
 export * from "./skeleton";
 export * from "./slider";

@@ -1,14 +1,8 @@
-import { useMemo } from 'react';
-import { useColorScheme } from 'nativewind';
-import { darkThemeColors, lightThemeColors } from '../lib/theme';
+// hooks/useThemeColors.ts (docs mirror)
+// @deprecated Use useThemeTokens. Shim during migration.
+import { useThemeTokens } from './useThemeTokens';
 
 export function useThemeColors() {
-  const { colorScheme } = useColorScheme();
-
-  const colors = useMemo(() => {
-    const result = colorScheme === 'dark' ? darkThemeColors : lightThemeColors;
-    return result;
-  }, [colorScheme]);
-
-  return { colors, colorScheme: colorScheme ?? 'light' };
+  const { colors, mode } = useThemeTokens();
+  return { colors, colorScheme: mode };
 }

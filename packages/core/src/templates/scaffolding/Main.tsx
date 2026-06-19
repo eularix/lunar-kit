@@ -1,4 +1,4 @@
-import './global.css';
+/// <reference types="@lunar-kit/css/types" />
 import { StatusBar } from 'expo-status-bar';
 import { View, Text } from 'react-native';
 import { Button } from './components/ui/button';

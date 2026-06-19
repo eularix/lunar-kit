@@ -5,7 +5,10 @@ title: Button
 import ButtonDemo from '@/demo/ButtonDemo'
 import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock';
 
-Button
+Pressable button with variant, size, loading, and icon support. Theme-aware via design tokens.
+
+**Platforms:** 🌐 Web · 📱 iOS · 📱 Android · 🖥️ Desktop (Tauri)
+**Themes:** Lunar · iOS · Android · Native
 
 <ButtonDemo />
 
@@ -23,10 +26,63 @@ export default function Example() {
   );
 }`} />
 
-## Example
+## Variants
 
-<DynamicCodeBlock lang="tsx" code={`<Button variant='default'>Default</Button>`} />
+<DynamicCodeBlock lang="tsx" code={`<Button variant='default'>Default</Button>
+<Button variant='secondary'>Secondary</Button>
+<Button variant='destructive'>Destructive</Button>
+<Button variant='outline'>Outline</Button>
+<Button variant='ghost'>Ghost</Button>
+<Button variant='link'>Link</Button>`} />
+
+## Sizes
+
+<DynamicCodeBlock lang="tsx" code={`<Button size='sm'>Small</Button>
+<Button size='default'>Default</Button>
+<Button size='lg'>Large</Button>
+<Button size='icon'><Icon /></Button>`} />
+
+## States
+
+<DynamicCodeBlock lang="tsx" code={`<Button loading>Submitting...</Button>
+<Button disabled>Disabled</Button>`} />
+
+## With Icons
+
+<DynamicCodeBlock lang="tsx" code={`import { Plus } from 'lucide-react-native';
+
+<Button leftIcon={<Plus size={16} color='#fff' />}>Add</Button>`} />
+
+## Theming
+
+Button colors auto-adapt to the active theme (Lunar / iOS / Android / Native).
+The `ActivityIndicator` color and text color come from the resolved theme tokens
+via `useThemeTokens()`.
+
+| Theme   | Primary color    | Behavior                             |
+|---------|------------------|--------------------------------------|
+| lunar   | brand            | default (web/tauri)                  |
+| ios     | systemBlue       | Apple HIG palette                    |
+| android | M3 purple #6750A4| Material 3 palette                   |
+| native  | resolves at runtime | iOS on iOS, Android on Android, lunar on web |
+
+Switch themes from the demo's theme selector or programmatically via `useThemeStore`.
+
+## API
+
+| Prop          | Type                                                    | Default   |
+|---------------|---------------------------------------------------------|-----------|
+| `variant`     | `'default' \| 'destructive' \| 'outline' \| 'secondary' \| 'ghost' \| 'link'` | `'default'` |
+| `size`        | `'default' \| 'sm' \| 'lg' \| 'icon'`                     | `'default'` |
+| `loading`     | `boolean`                                               | `false`   |
+| `disabled`    | `boolean`                                               | `false`   |
+| `leftIcon`    | `ReactNode`                                             | —         |
+| `rightIcon`   | `ReactNode`                                             | —         |
+| `className`   | `string`                                                | —         |
+| `textClassName` | `string`                                              | —         |
+
+Plus all props from React Native's `Pressable`.
 
 ---
 
-Check [source](https://github.com/dimsmaul/lunar-kit/tree/main/packages/core/src/components/ui/button.tsx).
+[Source](https://github.com/dimsmaul/lunar-kit/tree/main/packages/core/src/components/ui/button.tsx)

@@ -214,19 +214,14 @@ export async function setupStateSrc(projectPath: string) {
 }
 
 // ============================================================
-// NativeWind Setup
+// @lunar-kit/css Setup
 // ============================================================
 
-export async function setupNativeWind(projectPath: string) {
+export async function setupLunarCSS(projectPath: string) {
   // Config files
-  copyTemplate('config/global.css', path.join(projectPath, 'src', 'global.css'));
   copyTemplate('config/metro.config.js', path.join(projectPath, 'metro.config.js'));
   copyTemplate('config/babel.config.js', path.join(projectPath, 'babel.config.js'));
-  copyTemplate('config/nativewind-env.d.ts', path.join(projectPath, 'nativewind-env.d.ts'));
   copyTemplate('config/tsconfig.json', path.join(projectPath, 'tsconfig.json'));
-
-  // Copy tailwind.config.js from core source
-  copySource('tailwind.config.js', path.join(projectPath, 'tailwind.config.js'));
 
   // Copy lib utilities from core source
   await fs.ensureDir(path.join(projectPath, 'src', 'lib'));
@@ -241,6 +236,9 @@ export async function setupNativeWind(projectPath: string) {
   await fs.writeFile(path.join(projectPath, 'src', 'components', 'ui', 'text.tsx'), textContent);
 }
 
+/** @deprecated Use `setupLunarCSS`. */
+export const setupNativeWind = setupLunarCSS;
+
 // ============================================================
 // Dependencies
 // ============================================================
@@ -251,7 +249,7 @@ export async function updatePackageJson(projectPath: string, navigation: string,
   
   pkg.dependencies = {
     ...pkg.dependencies,
-    'nativewind': '^4.2.1',
+    '@lunar-kit/css': '^0.3.0',
     'clsx': '^2.1.1',
     'tailwind-merge': '^3.4.0',
     'class-variance-authority': '^0.7.1',
@@ -261,7 +259,7 @@ export async function updatePackageJson(projectPath: string, navigation: string,
     'react-native-reanimated': '~4.1.1',
     'react-native-safe-area-context': '^5.6.2',
     'react-native-screens': '~4.16.0',
-    // 'react-native-worklets': '0.5.1',
+    'react-native-worklets': '0.5.1',
     'zustand': '^5.0.3',
   };
 
@@ -290,9 +288,7 @@ export async function updatePackageJson(projectPath: string, navigation: string,
   
   pkg.devDependencies = {
     ...pkg.devDependencies,
-    'tailwindcss': '3.4.17',
     '@expo/metro-config': '^54.0.14',
-    'react-native-css-interop': '^0.2.1',
   };
 
   await fs.writeJson(pkgPath, pkg, { spaces: 2 });

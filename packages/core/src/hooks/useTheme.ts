@@ -1,23 +1,27 @@
-// hooks/use-theme.ts
+// hooks/useTheme.ts
 import { useThemeStore } from '@/stores/theme';
 import { useColorScheme as useDeviceColorScheme } from 'react-native';
+import type { Palette, Mode } from '@/lib/theme';
 
 export function useTheme() {
   const deviceTheme = useDeviceColorScheme();
-  const { theme, setTheme } = useThemeStore();
+  const { theme, setTheme, palette, setPalette } = useThemeStore();
 
-  const activeColorScheme =
+  const colorScheme: Mode =
     theme === 'system'
-      ? deviceTheme === 'dark'
-        ? 'dark'
-        : 'light'
-      : theme === 'dark'
-        ? 'dark'
-        : 'light';
+      ? (deviceTheme === 'dark' ? 'dark' : 'light')
+      : (theme === 'dark' ? 'dark' : 'light');
 
   return {
+    /** Active palette (space | forest | sunset | aurora | mono). */
+    palette,
+    setPalette,
+    /** Mode preference (light | dark | system). */
     theme,
-    colorScheme: activeColorScheme,
     setTheme,
+    /** Resolved color mode (light | dark). */
+    colorScheme,
   };
 }
+
+export type { Palette, Mode };

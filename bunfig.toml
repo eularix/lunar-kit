@@ -1,0 +1,4 @@
+# Hoisted linker dedupes monorepo native modules so Expo Go's JSI
+# bindings resolve to a single copy of expo / react-native / gesture-handler / etc.
+[install]
+linker = "hoisted"

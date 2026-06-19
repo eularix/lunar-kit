@@ -1,23 +1,23 @@
-// hooks/use-theme.ts
+// hooks/useTheme.ts (docs mirror)
+import { Platform, useColorScheme as useDeviceColorScheme } from 'react-native';
 import { useThemeStore } from '../stores/theme';
-import { useColorScheme as useDeviceColorScheme } from 'react-native';
+import { resolveNativeTheme, type ColorMode } from '../lib/theme';
 
 export function useTheme() {
-  const deviceTheme = useDeviceColorScheme();
-  const { theme, setTheme } = useThemeStore();
+  const deviceScheme = useDeviceColorScheme();
+  const { theme, colorScheme, setTheme, setColorScheme } = useThemeStore();
 
-  const activeColorScheme =
-    theme === 'system'
-      ? deviceTheme === 'dark'
-        ? 'dark'
-        : 'light'
-      : theme === 'dark'
-        ? 'dark'
-        : 'light';
+  const mode: ColorMode =
+    colorScheme === 'system' ? (deviceScheme === 'dark' ? 'dark' : 'light') : colorScheme;
+
+  const resolvedTheme = theme === 'native' ? resolveNativeTheme(Platform.OS) : theme;
 
   return {
     theme,
-    colorScheme: activeColorScheme,
+    resolvedTheme,
+    colorScheme,
+    mode,
     setTheme,
+    setColorScheme,
   };
 }

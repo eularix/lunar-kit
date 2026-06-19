@@ -1,34 +1,28 @@
 import * as React from 'react';
 import { Platform } from 'react-native';
+import * as ReactDOM from 'react-dom';
 
 interface PortalProps {
   children: React.ReactNode;
+  /** Optional container; defaults to document.body. */
+  container?: HTMLElement | null;
 }
 
 /**
- * Portal component for rendering content outside the normal component tree.
- *
- * Web  → Uses React DOM `createPortal` to mount at `document.body`.
- * Native → Renders children inline (Modal handles portal-like elevation).
+ * Portal — renders children outside the normal tree.
+ *  Web    → React DOM `createPortal`, mounted after first effect (SSR-safe).
+ *  Native → renders children inline (Modal handles elevation).
  */
-export function Portal({ children }: PortalProps) {
+export function Portal({ children, container }: PortalProps) {
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (Platform.OS === 'web') {
-    if (!mounted || typeof document === 'undefined') return null;
+  if (Platform.OS !== 'web') return <>{children}</>;
+  if (!mounted || typeof document === 'undefined') return null;
 
-    try {
-      const { createPortal } = require('react-dom') as typeof import('react-dom');
-      return createPortal(<>{children}</>, document.body);
-    } catch {
-      // react-dom not available (e.g. SSR fallback)
-      return <>{children}</>;
-    }
-  }
-
-  return <>{children}</>;
+  const target = container ?? document.body;
+  return ReactDOM.createPortal(<>{children}</>, target);
 }

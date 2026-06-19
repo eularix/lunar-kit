@@ -1,8 +1,9 @@
-// components/ui/button.tsx
+// components/ui/button.tsx (docs mirror)
 import * as React from 'react';
 import { Pressable, Text as RNText, ActivityIndicator } from 'react-native';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../lib/utils';
+import { useThemeTokens } from '../hooks/useThemeTokens';
 
 const buttonVariants = cva(
   'items-center justify-center rounded-md flex-row gap-2',
@@ -84,42 +85,29 @@ export function Button({
   textClassName,
   ...props
 }: ButtonProps) {
+  const { colors } = useThemeTokens();
   const isDisabled = disabled || loading;
-
-  // Check if children is only icon (for icon button)
   const isIconOnly = size === 'icon' && typeof children !== 'string';
+
+  const spinnerColor =
+    variant === 'default' ? colors.primaryForeground
+      : variant === 'destructive' ? colors.destructiveForeground
+      : variant === 'secondary' ? colors.secondaryForeground
+      : colors.foreground;
 
   return (
     <Pressable
       disabled={isDisabled}
       className={cn(
-        buttonVariants({
-          variant,
-          size,
-          disabled: isDisabled
-        }),
+        buttonVariants({ variant, size, disabled: isDisabled }),
         className
       )}
       {...props}
     >
-      {/* Loading Indicator */}
-      {loading && (
-        <ActivityIndicator
-          size="small"
-          color={
-            variant === 'default' || variant === 'destructive'
-              ? '#ffffff'
-              : variant === 'outline' || variant === 'ghost'
-                ? '#0f172a'
-                : '#0f172a'
-          }
-        />
-      )}
+      {loading && <ActivityIndicator size="small" color={spinnerColor} />}
 
-      {/* Left Icon */}
-      {!loading && leftIcon && leftIcon}
+      {!loading && leftIcon}
 
-      {/* Text or Icon Content */}
       {!loading && (
         isIconOnly ? (
           children
@@ -135,8 +123,7 @@ export function Button({
         )
       )}
 
-      {/* Right Icon */}
-      {!loading && rightIcon && rightIcon}
+      {!loading && rightIcon}
     </Pressable>
   );
 }

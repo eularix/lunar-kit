@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { Dimensions, Modal, View, type ViewStyle } from 'react-native';
+import { Dimensions, View, type ViewStyle } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
+import { AdaptiveModal } from '@lunar-primitive/adaptive-modal';
 import { useBottomSheet } from '../hooks/use-bottom-sheet';
 
 // ─── Render Mode ─────────────────────────────────────────────────────────────
@@ -134,15 +135,15 @@ export function BottomSheet({
         </BottomSheetRenderModeContext.Provider>
 
         {/* ── Modal render: content visible, triggers hidden ── */}
-        <Modal
+        <AdaptiveModal
           visible={visible}
-          transparent
+          onDismiss={handleClose}
+          backdropColor="transparent"
+          closeOnBackdropPress
           animationType="none"
-          statusBarTranslucent
-          onRequestClose={handleClose}
         >
           <GestureHandlerRootView style={{ flex: 1 }}>
-            {/* Semi-transparent backdrop */}
+            {/* Animated backdrop (own opacity for sheet drag-to-fade) */}
             <Animated.View
               style={[
                 {
@@ -169,7 +170,7 @@ export function BottomSheet({
               </BottomSheetRenderModeContext.Provider>
             </Animated.View>
           </GestureHandlerRootView>
-        </Modal>
+        </AdaptiveModal>
 
       </BottomSheetInternalContext.Provider>
     </BottomSheetContext.Provider>

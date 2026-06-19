@@ -187,7 +187,7 @@ export function DialogContent({ children, className, size, closeOnBackdropPress 
         {/* Backdrop dismissal layer */}
         <Pressable
           onPress={() => onOpenChange(false)}
-          style={StyleSheet.absoluteFillObject}
+          style={StyleSheet.absoluteFill as any}
         />
         {/* Centering wrapper with screen margin */}
         <View

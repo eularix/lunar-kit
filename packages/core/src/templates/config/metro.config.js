@@ -1,8 +1,6 @@
 const { getDefaultConfig } = require('expo/metro-config');
-const { withNativeWind } = require('nativewind/metro');
+const { withLunarCSS } = require('@lunar-kit/css/metro');
 
 const config = getDefaultConfig(__dirname);
 
-module.exports = withNativeWind(config, {
-    input: './src/global.css',
-});
+module.exports = withLunarCSS(config);

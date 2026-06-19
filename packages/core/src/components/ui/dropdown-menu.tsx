@@ -335,7 +335,7 @@ export function DropdownMenuContent({
     >
       <View style={{ flex: 1 }} pointerEvents="box-none">
         <Pressable
-          style={StyleSheet.absoluteFillObject}
+          style={StyleSheet.absoluteFill as any}
           onPress={() => onOpenChange(false)}
           android_disableSound
         />
@@ -623,7 +623,7 @@ export function DropdownMenuSubContent({
     >
       <View style={{ flex: 1 }} pointerEvents="box-none">
         <Pressable
-          style={StyleSheet.absoluteFillObject}
+          style={StyleSheet.absoluteFill as any}
           onPress={() => onOpenChange(false)}
           android_disableSound
         />

@@ -1,34 +1,28 @@
-// providers/theme-provider.tsx
-import React, { useEffect } from 'react';
-import { StatusBar, View } from 'react-native';
-import { useColorScheme as useDeviceColorScheme } from 'react-native';
-import { useColorScheme } from 'nativewind';
-import { lightTheme, darkTheme } from '@/lib/theme';
+// providers/theme-provider.tsx — applies palette + mode tokens via @lunar-kit/css
+import React from 'react';
+import { StatusBar, View, useColorScheme as useDeviceColorScheme } from 'react-native';
+import { themeVars } from '@/lib/theme';
 import { useThemeStore } from '@/stores/theme';
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const deviceTheme = useDeviceColorScheme();
-    const { setColorScheme } = useColorScheme();
     const theme = useThemeStore((state) => state.theme);
+    const palette = useThemeStore((state) => state.palette);
 
-    const activeColorScheme: 'light' | 'dark' | 'system' =
+    const activeColorScheme: 'light' | 'dark' =
         theme === 'system'
-            ? (deviceTheme === 'unspecified' ? 'light' : deviceTheme) ?? 'light'
-            : theme;
+            ? (deviceTheme === 'dark' ? 'dark' : 'light')
+            : theme === 'dark' ? 'dark' : 'light';
 
-    useEffect(() => {
-        setColorScheme(activeColorScheme);
-    }, [activeColorScheme, setColorScheme]);
-
-    const themeVars = activeColorScheme === 'dark' ? darkTheme : lightTheme;
+    const tokens = themeVars[palette][activeColorScheme];
 
     return (
         <>
-            <StatusBar 
-                barStyle={activeColorScheme === 'dark' ? 'light-content' : 'dark-content'} 
+            <StatusBar
+                barStyle={activeColorScheme === 'dark' ? 'light-content' : 'dark-content'}
                 animated
             />
-            <View style={themeVars} className="flex-1 bg-background text-foreground">
+            <View style={tokens as any} className="flex-1 bg-background">
                 {children}
             </View>
         </>

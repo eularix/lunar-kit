@@ -62,9 +62,8 @@ export function cn(...inputs: ClassValue[]) {
       rsc: false,
       tsx: response.typescript,
       packageManager: response.packageManager, // DONE: Save package manager
-      tailwind: {
-        config: 'tailwind.config.js',
-        css: 'global.css',
+      lunarcss: {
+        config: 'lunar.config.ts',
         baseColor: 'slate',
         cssVariables: true,
       },
@@ -81,9 +80,10 @@ export function cn(...inputs: ClassValue[]) {
     spinner.succeed(chalk.green('Project initialized successfully!'));
 
     console.log('\n' + chalk.bold('Next steps:'));
-    console.log(chalk.cyan('1. Make sure NativeWind is installed and configured'));
-    console.log(chalk.cyan('2. Install required dependencies:'));
-    console.log(chalk.white(`   ${response.packageManager} add clsx tailwind-merge`));
+    console.log(chalk.cyan('1. Install styling engine + helpers:'));
+    console.log(chalk.white(`   ${response.packageManager} add @lunar-kit/css clsx tailwind-merge`));
+    console.log(chalk.cyan('2. Run @lunar-kit/css setup:'));
+    console.log(chalk.white(`   npx lunar-css init`));
     console.log(chalk.cyan('3. Add components:'));
     console.log(chalk.white('   lk add button'));
   } catch (error) {

@@ -16,8 +16,7 @@ lunar-kit/
 │   └── primitives/
 │       ├── adaptive-modal/   # @lunar-primitive/adaptive-modal
 │       └── bottom-sheet/     # @lunar-primitive/bottom-sheet
-├── docs-v2/                  # OFFICIAL DOCS (Fumadocs + Next.js 16)
-├── docs/                     # WIP monorepo docs (abandoned setup)
+├── docs/                     # OFFICIAL DOCS (Fumadocs + Next.js 16)
 └── apps/
     ├── example/              # React Native example app
     └── showcase/             # Showcase app
@@ -27,18 +26,18 @@ lunar-kit/
 
 - **Monorepo:** Bun workspaces (`workspace:*` dependencies)
 - **Stack:** React Native components, NativeWind v4 (Tailwind v3), TypeScript
-- **Docs:** docs-v2 is the stable, working documentation site
+- **Docs:** docs is the stable, working documentation site
 - **Build:** Bun, tsup for packages, Next.js 16 for docs
 
 ---
 
-## Documentation (docs-v2/)
+## Documentation (docs/)
 
 **Status:** WORKING - Use this as the reference.
 
 ### Setup
 ```bash
-cd docs-v2
+cd docs
 bun install
 bun dev  # http://localhost:3000
 ```
@@ -166,12 +165,12 @@ cd packages/core
 bun dev
 
 # Run docs
-cd docs-v2
+cd docs
 bun dev
 ```
 
 ### Testing Docs Locally
-- Component demos in `docs-v2/src/demo/` are TSX
+- Component demos in `docs/src/demo/` are TSX
 - Import into MDX: `import ButtonDemo from '@/demo/ButtonDemo'`
 - Edit demo → hot reload in browser
 
@@ -186,8 +185,7 @@ bun dev
 
 ## Gotchas
 
-- **docs/** directory is abandoned (failed monorepo experiment). Ignore.
-- **docs-v2** is stable. Use as reference for any docs setup.
+- **docs/** is the official docs site (Fumadocs + Next.js 16). Use as reference.
 - **Component documentation is manual** — no auto-generation from source yet
 - **Changesets required** on all PRs (CI enforces)
 - **Turbopack + react-native** conflict — keep webpack aliasing correct
@@ -203,8 +201,8 @@ bun build              # Build all packages
 bun changeset:create   # Interactive changeset
 bun release:check      # Check pending releases
 
-# Docs-v2
-cd docs-v2
+# Docs
+cd docs
 bun dev                # Start dev server
 bun build              # Build production
 bun lint               # Run eslint
@@ -217,14 +215,33 @@ bun build              # One-time build
 
 ---
 
-## Next Steps (Future Work)
+## Web Support Strategy
 
-- [x] setup publish for primitives/*
-- [x] update CI/CD usages
-- [x] setup autodeploy web docs, because i will setup monorepo, if read changeset will deploy at vercel
-- [x] update usage adaptive modal, getting from primitives adaptive modal
-- [x] learn all existing component, and getting where component need primitives code
-- [ ] Auto-generate component docs from JSDoc/props
-- [ ] Sync component changes to docs automatically
-- [ ] Add more component examples
-- [ ] Create mobile app from docs (React Native Expo setup)
+### Platform Detection
+- Use `Platform.OS === 'web'` for runtime checks
+- Use `.web.tsx` file extensions for full platform forks
+- Prefer `.web.tsx` over inline Platform.select for complex components
+
+### Web Compatibility Rules
+- NO: `shadow*` props (shadowColor, shadowOffset, etc.) → use `boxShadow` in web StyleSheet
+- NO: Native-only libraries without web fallback (check expo.dev/go compatibility)
+- OK: `react-native-reanimated` v3 (web supported)
+- OK: `react-native-gesture-handler` (web supported, needs GestureHandlerRootView)
+- OK: NativeWind v4 (web supported via className)
+
+### Primitives Pattern (reference: @lunar-primitive/adaptive-modal)
+When a component needs platform-specific behavior, create a primitives package:
+- `packages/primitives/{name}/`
+- Export a unified interface, implement per platform
+- Native: use RN native APIs
+- Web: use DOM/Portal/CSS equivalents
+
+### Expo Go Constraints
+- Zero native modules requiring prebuild
+- All dependencies must be available in Expo SDK (verify at expo.dev/go)
+- If library not in Expo Go → create primitives with graceful fallback
+
+### Tauri v2 Notes
+- Tauri renders webview, treat as `Platform.OS === 'web'`
+- Mouse + touch events must both work
+- No platform-specific Tauri detection needed

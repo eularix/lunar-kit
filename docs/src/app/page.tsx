@@ -221,7 +221,7 @@ export default function Page() {
           {/* CTA Buttons */}
           <div className="mt-10 flex flex-col sm:flex-row gap-4">
             <Link
-              href="/docs"
+              href="/docs/getting-started"
               className="px-8 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity text-center"
             >
               Get Started
